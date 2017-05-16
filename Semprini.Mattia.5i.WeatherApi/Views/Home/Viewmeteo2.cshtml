@@ -1,0 +1,122 @@
+﻿@model List<Semprini.Mattia._5i.WeatherApi.Models.JsonMeteo.Jsonmeteo>
+@{
+    ViewBag.Title = "Viewmeteo2";
+
+}
+
+<fieldset>
+    <legend>Meteo delle città </legend>
+</fieldset>
+
+<div class="container">
+    <h3>Aggiungi una località</h3>
+
+    <span class="input-group-btn">
+
+@using (Html.BeginForm("Aggiorna", "Home", FormMethod.Post))
+{
+    @Html.TextBox("textbox")
+    <input type="submit" class="btn btn-default">
+
+    @*<input type="text" name="City" id="City" placeholder = "Inserisci qui la città" />
+    <input type="submit" class="btn btn-default" aria-label="Left Align" value="Ottieni meteo">*@
+
+}
+        @using (Html.BeginForm("Update", "Home"))
+        {
+            
+            <input type="submit" class="glyphicon glyphicon-refresh" aria-label="Right Align">
+        }
+</span>
+
+</div>
+
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="span5">
+                <table class="table table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                            @Html.Label("Città",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Descrizione",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Altitudine in metri",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Latitudine",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Longitudine",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Temperatura in gradi",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Umidità relativa",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                            </th>
+                            <th>
+                                @Html.Label("Velocità del vento in kph",
+                htmlAttributes: new { @class = "control-label col-md-2" })
+                        </th>
+                            <th>
+                                @Html.Label("Immagine")
+                            </th>
+                                </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model)
+                        {
+    <tr>
+        <td>
+            <span class="label label-success">
+                @Html.Label(x.current_observation.display_location.city)
+            </span>
+        </td>
+        <td>
+            @Html.Label((x.current_observation.weather))
+        </td>
+        <td>
+            @Html.Label((x.current_observation.observation_location.elevation))
+        </td>
+
+        <td>
+            @Html.Label((x.current_observation.observation_location.latitude))
+        </td>
+        <td>
+            @Html.Label((x.current_observation.observation_location.longitude))
+        </td>
+        <td>
+            @Html.Label((x.current_observation.feelslike_c))
+        </td>
+        <td>
+            @Html.Label((x.current_observation.relative_humidity))
+        </td>
+        <td>
+            @Html.Label(Convert.ToString(x.current_observation.wind_kph))
+        </td>
+        <td>
+            <a href="@x.current_observation.history_url" class="thumbnail">
+                <img src=@x.current_observation.icon_url>
+            </a>
+        </td>
+    </tr>
+                        }
+
+                    </tbody>
+                   
+                </table>
+                </div>
+            </div>
+            </div>
